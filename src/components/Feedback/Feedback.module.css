@@ -1,0 +1,9 @@
+.marksList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.marksListItem{
+    font-size: 27px;
+    margin-top: 20px;
+}
