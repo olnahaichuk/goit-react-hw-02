@@ -13,8 +13,7 @@ function App() {
       {
   good: 0,
 	neutral: 0,
-  bad: 0,
-  reset:0
+  bad: 0
   }})
 
   useEffect(() => {
@@ -22,32 +21,27 @@ function App() {
   }, [marks]); 
 
   const updateFeedback = (feedbackType) => {
-    if (feedbackType === "reset") {
-      setMarks({
+       setMarks({...marks, [feedbackType]: marks[feedbackType] + 1 })
+  }
+
+  const resetFeedback = () => {
+   setMarks({
         good: 0,
 	      neutral: 0,
 	      bad: 0
       })
-    } else {
-       setMarks({...marks, [feedbackType]: marks[feedbackType] + 1 })
-    }
-   
-  }
-  const [showTotalFeedback, setShowTotalFeedback] = useState(false); 
-
-  const toggleTotalFeedback = () => {
-    setShowTotalFeedback(!showTotalFeedback);
-   }
+ }
   const totalFeedback = marks.good + marks.neutral + marks.bad;
 
-  const positiveFeedback = Math.round((marks.good / totalFeedback) * 100);
+  const positiveFeedback =totalFeedback ? Math.round((marks.good / totalFeedback) * 100) : 0 ;
 
   return (
 
     <>
       <div >
         <Description />
-        <Options updateFeedback={updateFeedback} totalFeedback={ totalFeedback} />
+        <Options updateFeedback={updateFeedback} totalFeedback={totalFeedback}
+          resetFeedback={resetFeedback} />
         
         {totalFeedback ? (<Feedback good={marks.good}
           neutral={marks.neutral}
